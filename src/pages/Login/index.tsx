@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { PublicPageTemplate } from "../../components";
+import { Logo, PublicPageTemplate } from "../../components";
 import { Input } from "../../components/Input";
 import { StyledForm } from "./style";
 import { FormValues } from "./types";
@@ -21,6 +21,7 @@ export const Login: React.FC = () => {
 
   return (
     <PublicPageTemplate>
+      <Logo />
       <StyledForm onSubmitFunction={handleSubmit(onSubmit)}>
         <Input
           label="Email"

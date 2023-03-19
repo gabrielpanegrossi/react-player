@@ -13,4 +13,5 @@ export const PageContent = styled.main`
   height: 100%;
   width: 100%;
   padding: 16px;
+  gap: 16px;
 `;

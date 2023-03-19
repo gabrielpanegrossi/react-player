@@ -1,15 +1,12 @@
 import React from "react";
-import { Logo } from "../Assets";
+import { Logo } from "../Logo";
 import { Player } from "../Player";
-import { PlayerControllerContainer, Title } from "./styled";
+import { PlayerControllerContainer } from "./styled";
 
 export const PlayerContainer: React.FC = () => {
   return (
     <PlayerControllerContainer>
-      <Title>
-        <Logo />
-        Mediabox
-      </Title>
+      <Logo />
       <Player />
     </PlayerControllerContainer>
   );

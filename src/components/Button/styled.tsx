@@ -1,9 +1,15 @@
 import styled from "styled-components";
-import { ButtonProps, ButtonDesings } from "./types";
+import { ButtonProps } from "./types";
 
 const Designs = {
   primary: ``,
-  secondary: ``,
+  secondary: `
+    border:1px solid rgba(0,0,0,0.1);; 
+    background:transparent;
+    &:hover{
+      background-color: rgba(0,0,0,0.1);
+    }
+  `,
   tertiary: `
     border:none; 
     background:transparent;

@@ -7,3 +7,4 @@ export { ContentDropdown } from "./ContentDropdown";
 export { Button } from "./Button";
 export * from "./Assets";
 export { PlayerContainer } from "./PlayerContainer";
+export { Logo } from "./Logo";

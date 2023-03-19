@@ -13,6 +13,7 @@ export const Player: React.FC<PlayerProps> = () => {
   const [mediaList, setMediaList] = useState<TPlaylist>([]);
   const [mediaPlayingNow, setMediaPlayingNow] = useState<TMedia>();
   const [shouldPlay, setShouldPlay] = useState<boolean>(false);
+  const [volume, setVolume] = useState<number>(0.5);
   const [shouldPlayUrgentMedia, setShouldPlayUrgentMedia] =
     useState<boolean>(false);
 
@@ -39,18 +40,35 @@ export const Player: React.FC<PlayerProps> = () => {
     }
   );
 
-  const handleNextMedia = () => {
+  const triggerNextMedia = useCallback(() => {
     if (shouldPlayUrgentMedia && urgentMedia) {
       setMediaPlayingNow(urgentMedia);
       setShouldPlayUrgentMedia(false);
     } else {
       setMediaPlayingNow(mediaList[0]);
-      setMediaList((prevState) =>
-        prevState.filter((value, index) => index !== 0)
-      );
+      setMediaList((prevState) => prevState.filter((_, index) => index !== 0));
     }
 
     if (mediaList?.length === 0) refetchPlaylist();
+  }, [mediaList, refetchPlaylist, shouldPlayUrgentMedia, urgentMedia]);
+
+  const changeVolume = (operation: "minus" | "plus") => {
+    const operations = {
+      plus: () =>
+        setVolume((prevVolume = 0) => {
+          if (prevVolume + 0.1 < 1) return prevVolume + 0.1;
+
+          return prevVolume;
+        }),
+      minus: () =>
+        setVolume((prevVolume = 0) => {
+          if (prevVolume - 0.1 > 0) return prevVolume - 0.1;
+
+          return prevVolume;
+        }),
+    };
+
+    return operations[operation]();
   };
 
   const playMedia = useCallback(() => {
@@ -67,26 +85,31 @@ export const Player: React.FC<PlayerProps> = () => {
       mediaPlayingNow?.durationTimeInMs &&
       shouldPlay
     )
-      setTimeout(handleNextMedia, mediaPlayingNow.durationTimeInMs);
-  }, [mediaPlayingNow, shouldPlay]);
-
-  if (isLoading || isRefetching) return <Loading />;
+      setTimeout(triggerNextMedia, mediaPlayingNow.durationTimeInMs);
+  }, [mediaPlayingNow, shouldPlay, triggerNextMedia]);
 
   return (
     <PlayerContainer id="playerContainer">
-      <PlayerController />
-      <ImageContainer>
-        <img src={mediaPlayingNow?.imageUrl} alt="" />
-      </ImageContainer>
-      <ReactPlayer
-        height={mediaPlayingNow?.type === "image" ? "54px" : "100%"}
-        width="100%"
-        controls={mediaPlayingNow?.type === "image" ? false : true}
-        url={mediaPlayingNow?.url}
-        playing={shouldPlay}
-        onReady={playMedia}
-        onEnded={handleNextMedia}
-      />
+      {isLoading || isRefetching ? (
+        <Loading />
+      ) : (
+        <>
+          <PlayerController controls={{ triggerNextMedia, changeVolume }} />
+          <ImageContainer>
+            <img src={mediaPlayingNow?.imageUrl} alt="" />
+          </ImageContainer>
+          <ReactPlayer
+            height={mediaPlayingNow?.type === "image" ? "54px" : "100%"}
+            width="100%"
+            controls={mediaPlayingNow?.type === "image" ? false : true}
+            url={mediaPlayingNow?.url}
+            playing={shouldPlay}
+            volume={volume}
+            onReady={playMedia}
+            onEnded={triggerNextMedia}
+          />
+        </>
+      )}
     </PlayerContainer>
   );
 };
