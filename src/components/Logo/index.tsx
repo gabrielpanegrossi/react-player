@@ -5,6 +5,6 @@ import { Title } from "./styled";
 export const Logo: React.FC = () => (
   <Title>
     <LogoSvg />
-    Mediabox
+    MídiaBox
   </Title>
 );

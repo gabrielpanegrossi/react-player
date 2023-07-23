@@ -9,7 +9,7 @@ export const ModalContainer = styled.section<{ isIndex: boolean }>`
   right: 0;
 
   ${({ isIndex }) =>
-    !isIndex ? "width:320px; height:180px; " : "width:100%; height:100%;"}
+    !isIndex ? "width:320px; height:250px; " : "width:100%; height:100%;"}
 `;
 
 export const ModalHeader = styled.div`

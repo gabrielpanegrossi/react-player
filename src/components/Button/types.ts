@@ -1,3 +1,5 @@
+import { RefObject } from "react";
+
 export type ButtonDesings = "primary" | "secondary" | "tertiary";
 
 export interface ButtonProps

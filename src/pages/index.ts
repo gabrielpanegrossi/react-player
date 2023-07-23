@@ -1,3 +1,3 @@
-export { Playlists } from "./Playlists";
+export { Radios } from "./Radios";
 export { Login } from "./Login";
-export { Promocoes } from "./Promocoes";
+export { Radio } from "./Radio";

@@ -6,7 +6,6 @@ import { PlayerControllerContainer } from "./styled";
 export const PlayerContainer: React.FC = () => {
   return (
     <PlayerControllerContainer>
-      <Logo />
       <Player />
     </PlayerControllerContainer>
   );

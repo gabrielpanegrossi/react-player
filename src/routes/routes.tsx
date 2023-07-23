@@ -1,5 +1,5 @@
 import { AuthChecker } from "../components";
-import { Login, Playlists } from "../pages";
+import { Login, Radio, Radios } from "../pages";
 
 const publicRoutesMenuItems = [
   {
@@ -15,8 +15,13 @@ export const privateRoutesMenuItems = [
   },
   {
     shouldShowInMenu: true,
-    label: "Playlists",
-    routeInformation: { path: "/playlists", element: <Playlists /> },
+    label: "Radios",
+    routeInformation: { path: "/radios", element: <Radios /> },
+  },
+  {
+    shouldShowInMenu: false,
+    label: "Radio",
+    routeInformation: { path: "/radio/:radioId", element: <Radio /> },
   },
 ];
 
